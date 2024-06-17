@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: wisecow
-        image: sunnych8790/wisecow:v1
+        image: sunnych8790/wisecow:testv1.4
         ports:
         - name: wisecowapp-port
           containerPort: 4499

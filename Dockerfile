@@ -1,7 +1,9 @@
-FROM ubuntu
+FROM ubuntu:20.04
 
 # update and install required packages
-RUN apt update && apt install fortune-mod cowsay -y
+RUN apt update && apt install fortune-mod cowsay netcat -y
+
+ENV PATH="/usr/games:${PATH}"
 
 # set working dir to /app
 WORKDIR /app
