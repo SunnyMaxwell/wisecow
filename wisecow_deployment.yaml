@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wisecow-deploy
+  labels:
+    app: wisecow
+    k8s-app-resource: deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wisecow
+      k8s-app-resource: pod
+  template:
+    metadata:
+      name: my-wisecowapp
+      labels:
+        app: wisecow
+        k8s-app-resource: pod
+    spec:
+      containers:
+      - name: wisecow
+        image: sunnych8790/wisecow:v1
+        ports:
+        - name: wisecowapp-port
+          containerPort: 4499
