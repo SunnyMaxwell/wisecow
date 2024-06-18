@@ -43,7 +43,7 @@ jobs:
 
   Update-on-AKS:
     needs: build_and_push
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     name: Update the deployment
     steps:
       - name: Azure Login
