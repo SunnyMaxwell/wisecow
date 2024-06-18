@@ -32,7 +32,7 @@ jobs:
     - name: Build Docker Images
       run: |
         echo "Building Docker Image"
-        docker build -t ${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -f ${{ env.DOCKERFILE_PATH }} --no-cache
+        docker build -t ${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -f ${{ env.DOCKERFILE_PATH }} . --no-cache
         echo "Image Build Successfully."
         
     - name: Push Docker Images
