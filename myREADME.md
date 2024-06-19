@@ -147,7 +147,7 @@ communication.
 
 Note: 
 
-1) We can automate every Kubernetes services using below task but we just focus on modification for image and tag in deployment
+1) We can automate every Kubernetes services using below task but we just focus on modification for image and tag in deployment yaml File
 
 ```
 - name: Deploy to Kubernetes clsuter
@@ -161,7 +161,9 @@ with:
 
 2) We can automate complete process by adding all manual steps we are doing above in workflow file like
 
-    * External TLS Certificate (Key and Certificate Data store in Azure KeyVault)
-    * SetUp Ingress Controller (Connet the runner directly to kubernetes, with all required tools)
-    * Apply Ingress.yaml (Run Kubectl apply -f command directly using run task)
+    * Make use of External TLS Certificate (Key and Certificate Data store in Azure KeyVault)
     * Fetch the TLS secret data from Azure Keyvault (Create a Azure Key Vault Secret Resource to fetch the data and use for TLS Secure Communication)
+    * SetUp Ingress Controller (Connet the github action runner directly to kubernetes, with all required tools like kubectl)
+    * Apply Ingress.yaml (Run Kubectl apply -f command directly using run task)
+    * If No Cloud Provider is availble, create a runner and setup minikube on top it to host the application
+    

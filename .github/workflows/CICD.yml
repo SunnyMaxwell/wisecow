@@ -1,8 +1,8 @@
-name: Build and Push Docker Image to Docker Hub and Deploy to AKS
+name: Build and Push Docker Image to Docker Hub and Updated application to the Kubernetes environment
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 env:
@@ -41,10 +41,10 @@ jobs:
          docker push ${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
          echo "Docker Image Pushed Successfully."
 
-  Update-on-AKS:
+  Update-application-on-AKS:
     needs: build_and_push
     runs-on: ubuntu-latest
-    name: Update the deployment
+    name: Update_application
     steps:
       - name: Azure Login
         uses: Azure/login@v2.1.0
@@ -53,16 +53,14 @@ jobs:
       - name: Kubernetes Set Context
         uses: Azure/k8s-set-context@v3.0
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
           cluster-name: ${{ env.CLUSTER_NAME }}
           resource-group: ${{ env.RESOURCE_GROUP }}
       - name: Modify the Deployment file
         run: |
           echo "Updateing image in Deployment file"
-          sed -i "s|image: .*/wisecow:.*|image: ${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|g" wisecow_deployment.yaml
+          sed -i "s|image: .*/wisecow:.*|image: ${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}|g" kubernetes/wisecow_deployment.yaml
           
       - name: Deploy to Kubernetes clsuter
         uses: Azure/k8s-deploy@v4.9
         with:
           manifests: kubernetes/wisecow_deployment.yaml
-  
