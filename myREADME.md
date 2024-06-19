@@ -159,9 +159,7 @@ with:
         ingress.yaml
 ```
 
-2) We can do by using custom helm charts
-
-3) We can automate complete process by adding all manual steps we are doing above in workflow file like
+2) We can automate complete process by adding all manual steps we are doing above in workflow file like
 
     * External TLS Certificate 
     * SetUp Ingress Controller
