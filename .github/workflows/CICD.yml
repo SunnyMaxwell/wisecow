@@ -64,5 +64,5 @@ jobs:
       - name: Deploy to Kubernetes clsuter
         uses: Azure/k8s-deploy@v4.9
         with:
-          manifests: wisecow_deployment.yaml
+          manifests: kubernetes/wisecow_deployment.yaml
   

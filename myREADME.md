@@ -1,4 +1,4 @@
-# Steps for deploying Application
+# One Time Setup for deploying Application in AKS
 
 ## Prerequisite
 
@@ -50,8 +50,8 @@ Once connect to AKS we are ready to deploy the application on AKS
 2) Apply the below kubernetes manifests files
 
     ```
-    kubectl apply -f wisecow_deployment.yaml
-    kubectl apply -f wisecow_service.yaml
+    kubectl apply -f kubernetes/wisecow_deployment.yaml
+    kubectl apply -f kubernetes/wisecow_service.yaml
     ```
 
 3) Create Secret for secure TLS
@@ -97,7 +97,7 @@ communication.
     2) Deploy Ingress for wisecow Application
 
         ```
-        kubectl apply -f wisecow_ingress.yaml
+        kubectl apply -f kubernetes/wisecow_ingress.yaml
         ```
     
     3)  Access the application using below command or hit the url in browser
@@ -154,14 +154,14 @@ Note:
 uses: Azure/k8s-deploy@v4.9
 with:
     manifests: |
-        deployment.yaml
-        service.yaml
-        ingress.yaml
+        kubernetes/deployment.yaml
+        kubernetes/service.yaml
+        kubernetes/ingress.yaml
 ```
 
 2) We can automate complete process by adding all manual steps we are doing above in workflow file like
 
-    * External TLS Certificate 
-    * SetUp Ingress Controller
-    * Apply Ingress.yaml
-    * Fetch the TLS secret data from Azure Keyvault
+    * External TLS Certificate (Key and Certificate Data store in Azure KeyVault)
+    * SetUp Ingress Controller (Connet the runner directly to kubernetes, with all required tools)
+    * Apply Ingress.yaml (Run Kubectl apply -f command directly using run task)
+    * Fetch the TLS secret data from Azure Keyvault (Create a Azure Key Vault Secret Resource to fetch the data and use for TLS Secure Communication)

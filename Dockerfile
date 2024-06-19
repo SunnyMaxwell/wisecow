@@ -9,7 +9,7 @@ ENV PATH="/usr/games:${PATH}"
 WORKDIR /app
 
 # copying script to /app
-COPY wisecow.sh .
+COPY . .
 
 # excecutive permissions to copied script 
 RUN chmod +x wisecow.sh
